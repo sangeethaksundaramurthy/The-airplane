@@ -1,0 +1,45 @@
+// using VS 2022 .Net core
+namespace MyApp 
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Variable initilization
+            int horizontal_position = 0,
+                vertical_position = 0,
+                direction = 0, 
+                forward_position = 0;
+
+            // For eah´ch loop to read the file line by line
+            foreach (string line in System.IO.File.ReadLines(@"C:\Sangeetha\Airplane.txt"))
+            {
+                // Incresing direction for up command
+                if ((line.Split(' ')[0]) == "up")
+                    direction += Convert.ToInt16(line.Split(' ')[1]);
+
+                // Decreasing direction for down command
+                if ((line.Split(' ')[0]) == "down")
+                    direction -= Convert.ToInt16(line.Split(' ')[1]);
+
+                // Decreasing vertical posion for dive command
+                if ((line.Split(' ')[0]) == "dive")
+                    vertical_position -= Convert.ToInt16(line.Split(' ')[1]);
+
+                // Increing horizontal and vertical position for forward command
+                if ((line.Split(' ')[0]) == "forward")
+                {
+                    forward_position = Convert.ToInt16(line.Split(' ')[1]);
+                    horizontal_position += forward_position;
+                    vertical_position += (forward_position * direction);
+                }                    
+            }
+
+            // Writing the values in the console.
+            Console.WriteLine("The airplane");
+            Console.WriteLine("Horizontal posion is " + horizontal_position);
+            Console.WriteLine("Vertical posion is " + vertical_position);
+            Console.WriteLine("Multiplaictaion is  " + horizontal_position * vertical_position);
+        }
+    }
+}
